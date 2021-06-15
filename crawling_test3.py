@@ -8,7 +8,7 @@ from datetime import datetime
 
 USER = 'root'
 PORT = 3306
-PWD = '0000'
+PWD = 'sytjddus2413@$!#'
 HOST = 'localhost'
 
 date = datetime.today().strftime("%Y%m%d")
@@ -27,10 +27,10 @@ def crawling_movie():
         soup = BeautifulSoup(res.text,'lxml') 
         title = soup.select('td.title > div.tit5 > a')
         point = soup.select('td.point') 
-        detail_link = soup.select('td.ac > a')
+        # detail_link = soup.select('td.ac > a')
 
         for t, p in zip(title, point):
             
-            db_test1.input_db('movie_list', 'movie_table', t.getText(), float(p.getText()), genre_code, detail_link, USER, PORT, PWD, HOST)
+            db_test1.input_db('movie_list', 'movie_table', t.getText(), float(p.getText()), genre_code, USER, PORT, PWD, HOST)
     
 # crawling_movie()

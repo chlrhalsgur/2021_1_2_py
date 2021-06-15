@@ -3,9 +3,12 @@ import tkinter.ttk  # Treeview 메서드(table 관련)
 # import table_test
 from functools import partial
 
+import webbrowser #url연결 네이버 영화 보여줄 때 사용
+
 
 #from tkhtmlview import HTMLLabel  //html사용해서 네이버영화, 네이버영화랭킹링크 사용할려고 했음 but 안됨
 #https://remixicon.com/    사용할려고 했던 아이콘
+
 
 
 movie_list = [
@@ -33,15 +36,20 @@ movie_list_r = [
     ['히트', '9.12431', 16]
 ]
 
+#뒤로가기 버튼
+def back_and_close():
+    win.quit  
+
 def sort_list(movie_list, value):
     sorted_list = sorted(movie_list, key=lambda movie_list: movie_list[value])
     return sorted_list
 
 
-print(sort_list(movie_list, 2))
+# print(sort_list(movie_list, 2))
 win=Tk()
 
 
+#새로운 윈도우 열고, 3개의 메뉴 보여줌
 def create_window(movie_list, movie_list_r):
     window = Toplevel(win) #새로운 창 열기
     window.geometry("1000x600")
@@ -50,29 +58,44 @@ def create_window(movie_list, movie_list_r):
     btn1 = Button(window, text = "Show Movie Ranking", command= partial(Naver_movie_Ranking, movie_list))
     btn2 = Button(window, text = "Our New Movie Ranking", command= partial(Our_new_Ranking, movie_list_r))
 
+    
+    button = Button(window,text = "<<back", command = window.destroy, width=7,height=1)
+    button.configure(font=("Courier", 15, "italic"))
+    button.place(relx=0.8, rely=0.9)
+
     btn.pack(pady=40)
     btn1.pack(pady=20)
     btn2.pack(pady=20)
 
-#Show Movie 클릭했을 경우 영화들 보여주기
+def  Click_and_Quit():
+  win.geometry("100x50")
+  
+
+
+#Show Movie 클릭했을 경우 네이버 영화 사이트에 들어가서 상영영화 보여주기
 def Naver_movie(movie_list):
-    window_naver=Toplevel(win)
-    window_naver.geometry("1000x600")
+    url="https://movie.naver.com/"
+    webbrowser.open(url)
+    
 
 #Show Movie Ranking 클릭했을 경우 네이버 영화 랭킹 보여주기
 def Naver_movie_Ranking(movie_list):
     # GUI창을 생성하고 라벨을 설정한다.
     root=tkinter.Tk()
-    root.title("Naver Movie Ranking")
+    root.title("Our new Movie Ranking")
     root.geometry("1000x600")
     root.resizable(False, False)
 
-    lbl = tkinter.Label(root, text="Naver Movie Ranking") # 제목
+    lbl = tkinter.Label(root, text="Our new Movie Ranking") # 제목
     lbl.pack() 
 
     # 표 생성하기. colums는 컬럼 이름, displaycolums는 실행될 때 보여지는 순서다.
     treeview=tkinter.ttk.Treeview(root, columns=["one", "two","three"], displaycolumns=["one","two","three"], height = 300)
     treeview.pack()
+
+    button = Button(root,text = "<<back", command = root.destroy, width=7,height=1)
+    button.configure(font=("Courier", 15, "italic"))
+    button.place(relx=0.8, rely=0.9)
 
     # 각 컬럼 설정. 컬럼 이름, 컬럼 넓이, 정렬 등
     treeview.column("#0", width=100,)
@@ -106,6 +129,11 @@ def Our_new_Ranking(movie_list_r):
 
     lbl = tkinter.Label(root, text="Naver Movie Ranking") # 제목
     lbl.pack() 
+
+    button = Button(root,text = "<<back", command = root.destroy, width=7,height=1)
+    button.configure(font=("Courier", 15, "italic"))
+    button.place(relx=0.8, rely=0.9)
+
 
     # 표 생성하기. colums는 컬럼 이름, displaycolums는 실행될 때 보여지는 순서다.
     treeview=tkinter.ttk.Treeview(root, columns=["one", "two","three"], displaycolumns=["one","two","three"], height = 300)
@@ -159,9 +187,13 @@ def make_front(movie_list, movie_list_r):
     btn = Button(win, text="Let's start", command = partial(create_window, movie_list, movie_list_r))
     btn.pack(side=BOTTOM, pady=50)
 
+    button = Button(win,text = "<<Quit", command = win.destroy, width=7,height=1)
+    button.configure(font=("Courier", 15, "italic"))
+    button.place(relx=0.8, rely=0.9)
+
     #배경색
     win.configure(bg='#49A')
 
     win.mainloop() #창 열기
 
-# make_front(movie_list, movie_list_r)
+make_front(movie_list, movie_list_r)

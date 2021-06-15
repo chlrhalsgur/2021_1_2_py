@@ -3,7 +3,6 @@ import db_test1
 import Rerating_movie
 from datetime import datetime
 import new_front
-
 movie_list = [
     ['홀리데이', '8.67', 16],
     ['화차', '8.3018', 13],
@@ -30,10 +29,10 @@ movie_list_r = [
 ]
 
 
-# print(datetime.today())
-crw.crawling_movie()
-movie_list = db_test1.print_db() 
-movie_list_r = Rerating_movie.rerate(movie_list)
+# crw.crawling_movie()
+# movie_list = db_test1.print_db() 
+# movie_list_r = Rerating_movie.rerate(movie_list)
 
-new_front.make_front(movie_list, movie_list_r)
+print(movie_list)
+# new_front.make_front(movie_list, movie_list_r)
 

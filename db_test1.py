@@ -2,7 +2,7 @@ import pymysql
 
 USER = 'root'
 PORT = 3306
-PWD = '0000'
+PWD = 'sytjddus2413@$!#'
 HOST = 'localhost'
 
 # sql 접속
@@ -12,7 +12,7 @@ HOST = 'localhost'
 입력
 접속 -> 커서잡고 -> 쿼리문 작성 -> excute -> commit -> 종료
 '''
-def input_db(database, table, title, point, genre_code, detail_link, u = USER, P = PORT, p = PWD, h = HOST):
+def input_db(database, table, title, point, genre_code, u = USER, P = PORT, p = PWD, h = HOST):
     conn = pymysql.connect(host=h, port = P, user = u, password = p, db=database, charset = 'utf8')
     curs_input = conn.cursor()
     sql_input = f'insert ignore into {table}(title, point, genre_code) values(%s, %s, %s)'
